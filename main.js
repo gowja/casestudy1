@@ -14,10 +14,10 @@ function todo(){
                 // console.log(i.id);
                 if(i.completed==false){
                     count++;
-                    out+=`<input type="checkbox" id="mycheck" onclick="check();" ><label>${i.title}</label><br><hr>`;
+                    out+=`<input type="checkbox" id="mycheck" onchange="check(this);" ><label>${i.title}</label><br><hr>`;
                 }
                 else{
-                    out+=`<input type="checkbox"  checked disabled class="checkbox checkbox-primary"><label>${i.title}</label><br><hr>`;
+                    out+=`<input type="checkbox" id="mycheck"  checked disabled class="checkbox checkbox-primary"><label>${i.title}</label><br><hr>`;
                 }
             });
             document.getElementById("chk").innerHTML=out;
@@ -30,55 +30,31 @@ function todo(){
 }
 todo();
 
-function check(){
-    // cnt++;
-    // console.log("inside");
-    // console.log(cnt);
-    //     var prom = new Promise(function(resolve,reject){
-    //     if(cnt>=5){
-    //         resolve("completed");
-    //     }
-    //     else{
-    //         reject();
-    //     }
-    //     });
-    //     prom
-    //     .then(function(a){
-    //         alert(c);
-    //     })
-    //     .catch(function(){
-    //         console.log("task not completed")
-    //     });
-
-    cnt++;
-    console.log(cnt);
-    var ch=document.getElementById("mycheck");
-    console.log(ch);
-    if(ch.checked==true){
-        c++;
-    }
-    console.log(c);
-    if(c>=5&&cnt>=5){
-        flag=1;
-        final();
-    }   
-}
-
-function final(){
-    var prom=new Promise(function(resolve,reject){
-        if(flag==1){
-            resolve(" Congrats. 5 Tasks have been Successfully Completed");
+function check(z){
+    var prm=new Promise(function(resolve,reject){
+        cnt++;
+        console.log(z);
+        console.log(cnt);
+        if(z.checked==true){
+            c++;
         }
         else{
-            reject("not completed");
+            c--;
         }
+        console.log(c);
+        if(c>=5&&cnt>=5){
+            resolve(" Congrats. 5 Tasks have been Successfully Completed");
+        }  
+        else{
+            reject("not completed");
+        } 
     });
 
-    prom
-    .then(function(p){
-        alert(p);
-    })
-    .catch(function(q){
-        console.log(p);
-    })
+   prm.then(function(f){
+       alert(f);
+   })
+   .catch(function(l){
+       console.log(l);
+   })
+   
 }
